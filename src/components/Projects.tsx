@@ -71,7 +71,7 @@ const projectsData: Project[] = [
   }
 ];
 
-// All unique tags from projects
+// All unique tags from projects 
 const allTags = Array.from(new Set(projectsData.flatMap(project => project.tags)));
 
 const Projects: React.FC = () => {
@@ -81,7 +81,7 @@ const Projects: React.FC = () => {
   // Filter projects based on selected tag
   const handleFilterClick = (tag: string) => {
     setActiveFilter(tag);
-    
+
     if (tag === 'All') {
       setFilteredProjects(projectsData);
     } else {
@@ -120,11 +120,10 @@ const Projects: React.FC = () => {
         >
           <button
             onClick={() => handleFilterClick('All')}
-            className={`px-4 py-2 rounded-full transition-colors duration-300 ${
-              activeFilter === 'All'
-                ? 'bg-primary-600 dark:bg-primary-500 text-white'
-                : 'bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600'
-            }`}
+            className={`px-4 py-2 rounded-full transition-colors duration-300 ${activeFilter === 'All'
+              ? 'bg-primary-600 dark:bg-primary-500 text-white'
+              : 'bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600'
+              }`}
           >
             All
           </button>
@@ -132,11 +131,10 @@ const Projects: React.FC = () => {
             <button
               key={tag}
               onClick={() => handleFilterClick(tag)}
-              className={`px-4 py-2 rounded-full transition-colors duration-300 ${
-                activeFilter === tag
-                  ? 'bg-primary-600 dark:bg-primary-500 text-white'
-                  : 'bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600'
-              }`}
+              className={`px-4 py-2 rounded-full transition-colors duration-300 ${activeFilter === tag
+                ? 'bg-primary-600 dark:bg-primary-500 text-white'
+                : 'bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600'
+                }`}
             >
               {tag}
             </button>
