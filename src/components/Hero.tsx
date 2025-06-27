@@ -4,10 +4,9 @@ import { ArrowDown, ChevronRight } from 'lucide-react';
 import Button from './Button';
 import TypewriterEffect from 'typewriter-effect';
 import { IMAGES } from '../../public/index';
+import { dynamicTexts } from './constant';
 
 const Hero: React.FC = () => {
-  const dynamicTexts = ["MERN Stack Developer", "Next.js Developer", "React.js Developer"];
-
   const scrollToProjects = () => {
     const projectsSection = document.querySelector('#projects');
     if (projectsSection) {
@@ -24,9 +23,9 @@ const Hero: React.FC = () => {
 
   return (
     <section id="home" className="min-h-screen pt-24 flex flex-col justify-center relative overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl flex flex-col-reverse lg:flex-row items-center">
         <div className="w-full lg:w-1/2 mb-12 lg:mb-0">
-          <motion.h2 
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
@@ -34,8 +33,8 @@ const Hero: React.FC = () => {
           >
             Hello, I'm Muhammad Usman
           </motion.h2>
-          
-          <motion.h1 
+
+          <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
@@ -54,8 +53,8 @@ const Hero: React.FC = () => {
               />
             </span>
           </motion.h1>
-          
-          <motion.p 
+
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
@@ -63,14 +62,14 @@ const Hero: React.FC = () => {
           >
             Building beautiful, functional digital experiences with a focus on clean design and intuitive user interfaces.
           </motion.p>
-          
-          <motion.div 
+
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.6 }}
             className="flex flex-col sm:flex-row gap-4"
           >
-            <Button 
+            <Button
               onClick={scrollToProjects}
               icon={<ChevronRight size={18} />}
               iconPosition="right"
@@ -78,7 +77,7 @@ const Hero: React.FC = () => {
             >
               View Projects
             </Button>
-            <Button 
+            <Button
               onClick={scrollToContact}
               variant="outline"
               size="lg"
@@ -87,25 +86,25 @@ const Hero: React.FC = () => {
             </Button>
           </motion.div>
         </div>
-        
+
         <div className="w-full lg:w-1/2 flex justify-center lg:justify-end">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.7, delay: 0.3 }}
             className="relative w-[280px] h-[280px] sm:w-[400px] sm:h-[400px]"
           >
             <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-primary-600 blur-3xl opacity-20 dark:opacity-30 animate-pulse" />
-            <img 
-              src={IMAGES.HERO_IMAGE} 
-              alt="Usman" 
+            <img
+              src={IMAGES.HERO_IMAGE}
+              alt="Usman"
               className="rounded-full object-cover w-full h-full border-8 border-white dark:border-gray-800 shadow-xl"
             />
           </motion.div>
         </div>
       </div>
-      
-      <motion.div 
+
+      <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1, y: [0, 10, 0] }}
         transition={{ duration: 1.5, delay: 1, repeat: Infinity }}

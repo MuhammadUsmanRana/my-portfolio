@@ -1,11 +1,13 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { IMAGES } from '../../public';
+import { useTheme } from '../context/ThemeContext';
 
 const About: React.FC = () => {
+  const { theme } = useTheme();
   return (
     <section id="about" className="py-20 bg-white dark:bg-gray-800">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -13,6 +15,13 @@ const About: React.FC = () => {
           transition={{ duration: 0.5 }}
           className="text-center mb-12"
         >
+          <div className="inline-flex items-center justify-center w-16 h-16 mb-6 rounded-full bg-gradient-to-r from-primary-500 to-secondary-500 shadow-lg">
+            {/* here set aboute me icons in svg */}
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Z" />
+              <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 7.5h3m-3 3h3m-6-3h3m-3 3H9" />
+            </svg>
+          </div>
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
             About <span className="text-primary-600 dark:text-primary-400">Me</span>
           </h2>
@@ -94,7 +103,7 @@ const About: React.FC = () => {
             <div className="flex flex-col sm:flex-row gap-4">
               <a
                 href="#contact"
-                className="inline-flex items-center justify-center px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white rounded-md transition-colors duration-300"
+                className="inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-primary-500 to-secondary-500 hover:bg-primary-700 text-white rounded-md transition-colors duration-300"
               >
                 Hire Me
               </a>
@@ -108,6 +117,27 @@ const About: React.FC = () => {
             </div>
           </motion.div>
         </div>
+
+        {/* Call to Action */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="text-center mt-16"
+        >
+          <div className={`inline-flex items-center space-x-2 px-6 py-3 rounded-full ${theme === 'dark'
+            ? 'bg-gray-800/50 border border-gray-700/50'
+            : 'bg-white/80 border border-gray-200/50'
+            } shadow-lg`}>
+            <span className={`text-sm font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+              }`}>
+              Always learning and growing
+            </span>
+            <div className={`w-2 h-2 rounded-full animate-pulse ${theme === 'dark' ? 'bg-primary-400' : 'bg-primary-500'
+              }`} />
+          </div>
+        </motion.div>
       </div>
     </section>
   );

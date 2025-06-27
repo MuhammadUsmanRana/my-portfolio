@@ -2,14 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import ThemeToggle from './ThemeToggle';
-
-const navItems = [
-  { label: 'Home', href: '#home' },
-  { label: 'About', href: '#about' },
-  { label: 'Projects', href: '#projects' },
-  { label: 'Skills', href: '#skills' },
-  { label: 'Contact', href: '#contact' },
-];
+import { navItems } from './constant';
 
 const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -28,7 +21,7 @@ const Header: React.FC = () => {
   // Handle scroll to section on nav item click
   const handleNavClick = (href: string) => {
     setIsMobileMenuOpen(false);
-    
+
     const element = document.querySelector(href);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
@@ -37,16 +30,15 @@ const Header: React.FC = () => {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled 
-          ? 'bg-white/90 dark:bg-gray-900/90 backdrop-blur-md shadow-sm py-3' 
-          : 'bg-transparent py-5'
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
+        ? 'bg-white/90 dark:bg-gray-900/90 backdrop-blur-md shadow-sm py-3'
+        : 'bg-transparent py-5'
+        }`}
     >
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <motion.a 
+          <motion.a
             href="#home"
             className="text-2xl font-bold text-gray-900 dark:text-white"
             whileHover={{ scale: 1.05 }}
@@ -57,7 +49,7 @@ const Header: React.FC = () => {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
-            {navItems.map((item) => (
+            {navItems.map((item: { label: string; href: string }) => (
               <motion.button
                 key={item.label}
                 onClick={() => handleNavClick(item.href)}
@@ -97,7 +89,7 @@ const Header: React.FC = () => {
             className="md:hidden bg-white dark:bg-gray-900 shadow-lg"
           >
             <nav className="flex flex-col py-4 px-6 space-y-4">
-              {navItems.map((item) => (
+              {navItems.map((item: { label: string; href: string }) => (
                 <motion.button
                   key={item.label}
                   onClick={() => handleNavClick(item.href)}

@@ -14,13 +14,14 @@ function App() {
   useEffect(() => {
     // Set page title
     document.title = 'Portfolio | Usman Developer';
-    
+
     // Find the meta description tag and update it
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
-      metaDescription.setAttribute('content', 'Personal portfolio of Usman Developer - Designer & Developer');
+      metaDescription.setAttribute('content', 'Personal portfolio of Usman Developer - Developer & Designer');
     }
   }, []);
+  
 
   return (
     <ThemeProvider>

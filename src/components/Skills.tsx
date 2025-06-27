@@ -1,114 +1,162 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-
-interface Skill {
-  name: string;
-  level: number; // 0-100
-  icon: string;
-  category: 'frontend' | 'backend' | 'design' | 'tools';
-}
-
-const skillsData: Skill[] = [
-  // Frontend
-  { name: 'HTML5', level: 95, icon: '🌐', category: 'frontend' },
-  { name: 'CSS3', level: 90, icon: '🎨', category: 'frontend' },
-  { name: 'JavaScript', level: 92, icon: '📜', category: 'frontend' },
-  { name: 'React', level: 88, icon: '⚛️', category: 'frontend' },
-  { name: 'TypeScript', level: 85, icon: '📘', category: 'frontend' },
-  { name: 'Tailwind CSS', level: 90, icon: '🌬️', category: 'frontend' },
-  
-  // Backend
-  { name: 'Node.js', level: 80, icon: '🟢', category: 'backend' },
-  { name: 'Express', level: 78, icon: '🚂', category: 'backend' },
-  { name: 'MongoDB', level: 75, icon: '🍃', category: 'backend' },
-  { name: 'Firebase', level: 82, icon: '🔥', category: 'backend' },
-  
-  // Design
-  { name: 'Figma', level: 88, icon: '🎭', category: 'design' },
-  { name: 'Adobe XD', level: 85, icon: '📐', category: 'design' },
-  { name: 'UI/UX Design', level: 87, icon: '📱', category: 'design' },
-  
-  // Tools
-  { name: 'Git', level: 90, icon: '📊', category: 'tools' },
-  { name: 'Docker', level: 70, icon: '🐳', category: 'tools' },
-  { name: 'Jest', level: 78, icon: '🧪', category: 'tools' },
-  { name: 'VS Code', level: 95, icon: '💻', category: 'tools' },
-];
-
-const categoryLabels = {
-  frontend: 'Frontend Development',
-  backend: 'Backend Development',
-  design: 'Design',
-  tools: 'Tools & Platforms',
-};
+import { useTheme } from '../context/ThemeContext';
+import { skillsData } from './constant';
 
 const Skills: React.FC = () => {
+  const { theme } = useTheme();
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: {
+      opacity: 0,
+      y: 20,
+      scale: 0.95
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut"
+      }
+    }
+  };
+
   return (
-    <section id="skills" className="py-20 bg-white dark:bg-gray-800">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <section
+      id="skills"
+      className={`py-20 transition-colors duration-300 ${theme === 'dark'
+        ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900'
+        : 'bg-gradient-to-br from-gray-50 via-white to-gray-50'
+        }`}
+    >
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-12"
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
-            My <span className="text-primary-600 dark:text-primary-400">Skills</span>
+          <div className="inline-flex items-center justify-center w-16 h-16 mb-6 rounded-full bg-gradient-to-r from-primary-500 to-secondary-500 shadow-lg">
+            <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+            </svg>
+          </div>
+          <h2 className={`text-3xl sm:text-4xl md:text-5xl font-bold mb-4 ${theme === 'dark' ? 'text-white' : 'text-gray-900'
+            }`}>
+            My{" "}
+            <span className="bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent">
+              Skills
+            </span>
           </h2>
-          <div className="w-24 h-1 bg-primary-600 dark:bg-primary-400 mx-auto mt-4 rounded-full"></div>
-          <p className="text-gray-600 dark:text-gray-300 mt-4 max-w-2xl mx-auto">
-            Here are the technologies and tools I'm proficient with. I'm always expanding my skillset
-            and learning new technologies.
+          <p className={`text-base sm:text-lg max-w-3xl mx-auto ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+            }`}>
+            Core technologies and tools I use to build modern web applications.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {(Object.keys(categoryLabels) as Array<keyof typeof categoryLabels>).map((category, index) => (
+        {/* Skills Grid */}
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 sm:gap-6"
+        >
+          {skillsData.map((skill, index) => (
             <motion.div
-              key={category}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg shadow-md"
+              key={skill.name}
+              variants={itemVariants}
+              className={`relative p-4 sm:p-6 rounded-2xl transition-all duration-300 transform hover:-translate-y-2 ${theme === 'dark'
+                ? 'bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 hover:border-primary-500/30'
+                : 'bg-white/80 backdrop-blur-sm border border-gray-200/50 hover:border-primary-300/50'
+                } shadow-lg hover:shadow-2xl`}
             >
-              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-6 flex items-center">
-                <span className="w-3 h-8 bg-primary-600 dark:bg-primary-400 mr-3 rounded-sm"></span>
-                {categoryLabels[category]}
-              </h3>
-
-              <div className="space-y-5">
-                {skillsData
-                  .filter((skill) => skill.category === category)
-                  .map((skill) => (
-                    <div key={skill.name} className="skill-item">
-                      <div className="flex justify-between items-center mb-1">
-                        <div className="flex items-center">
-                          <span className="mr-2 text-xl">{skill.icon}</span>
-                          <span className="font-medium text-gray-800 dark:text-gray-200">
-                            {skill.name}
-                          </span>
-                        </div>
-                        <span className="text-sm text-gray-600 dark:text-gray-300">
-                          {skill.level}%
-                        </span>
-                      </div>
-                      <div className="h-2 bg-gray-200 dark:bg-gray-600 rounded-full overflow-hidden">
-                        <motion.div
-                          initial={{ width: 0 }}
-                          whileInView={{ width: `${skill.level}%` }}
-                          viewport={{ once: true }}
-                          transition={{ duration: 1, delay: 0.2 }}
-                          className="h-full bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full"
-                        ></motion.div>
-                      </div>
-                    </div>
-                  ))}
+              {/* Skill Header */}
+              <div className="text-center mb-3 sm:mb-4">
+                <div
+                  className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center text-2xl sm:text-3xl mx-auto mb-2 sm:mb-3"
+                  style={{ backgroundColor: `${skill.color}20` }}
+                >
+                  <img src={skill.icon} alt={skill.name} className="w-12 h-12" />
+                </div>
+                <h3 className={`font-bold text-base sm:text-lg ${theme === 'dark' ? 'text-white' : 'text-gray-900'
+                  }`}>
+                  {skill.name}
+                </h3>
+                <span className={`text-xs sm:text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'
+                  }`}>
+                  {skill.level}%
+                </span>
               </div>
+
+              {/* Progress Bar */}
+              <div className="mb-3 sm:mb-4">
+                <div className={`h-1.5 sm:h-2 rounded-full overflow-hidden ${theme === 'dark' ? 'bg-gray-700/50' : 'bg-gray-200/50'
+                  }`}>
+                  <motion.div
+                    initial={{ width: 0 }}
+                    whileInView={{ width: `${skill.level}%` }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 1.5, delay: index * 0.1 }}
+                    className="h-full rounded-full relative"
+                    style={{
+                      background: `linear-gradient(90deg, ${skill.color}40, ${skill.color})`
+                    }}
+                  >
+                    <div
+                      className="absolute inset-0 rounded-full"
+                      style={{
+                        background: `linear-gradient(90deg, transparent, ${skill.color}80)`,
+                        animation: 'shimmer 2s infinite'
+                      }}
+                    />
+                  </motion.div>
+                </div>
+              </div>
+
+              {/* Description */}
+              <p className={`text-xs leading-relaxed text-center ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+                }`}>
+                {skill.description}
+              </p>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
+
+        {/* Skills Summary */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="text-center mt-12 sm:mt-16"
+        >
+          <div className={`inline-flex items-center space-x-2 px-6 py-3 rounded-full ${theme === 'dark'
+            ? 'bg-gray-800/50 border border-gray-700/50'
+            : 'bg-white/80 border border-gray-200/50'
+            } shadow-lg`}>
+            <span className={`text-sm font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'
+              }`}>
+              Always learning and growing
+            </span>
+            <div className={`w-2 h-2 rounded-full animate-pulse ${theme === 'dark' ? 'bg-primary-400' : 'bg-primary-500'
+              }`} />
+          </div>
+        </motion.div>
       </div>
     </section>
   );
